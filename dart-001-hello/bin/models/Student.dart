@@ -21,7 +21,7 @@ class Student {
   // null 값이 허용이 안되는 stNum 은 = 0 으로 값을 셋팅 해주어야한다.
   Student({this.stNum = 0, this.stName, this.stDept, this.stGrade});
 
-  // setter method
+  // setter, getter method
   set setStNum(int num) => stNum = num;
   int get getStNum => stNum;
 
