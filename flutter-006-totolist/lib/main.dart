@@ -102,6 +102,11 @@ class _StartPage extends State<StartPage> {
         itemCount: todoList.length,
         itemBuilder: (context, index) {
           return ListTile(
+            onTap: () {},
+            selectedColor: const Color.fromARGB(255, 29, 106, 173)
+                .withOpacity(0.5), // 선택했을때
+            splashColor: const Color.fromARGB(255, 180, 20, 30)
+                .withOpacity(0.5), // 클릭했을때
             title: Dismissible(
               onDismissed: (direction) {
                 setState(() {
@@ -109,6 +114,10 @@ class _StartPage extends State<StartPage> {
                 });
               },
               key: Key(todoList[index].content),
+              background: Container(
+                color: Colors.red, // 옆으로 밀었을때
+                child: const Text("삭제"),
+              ),
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Row(
