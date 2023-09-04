@@ -1,22 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:totolist/models/todo.dart';
-
-void main() {
-  runApp(const App());
-}
-
-class App extends StatelessWidget {
-  const App({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false, //debug 제거하기
-      home: StartPage(),
-    );
-  }
-}
+import 'package:totolist/service/todo_service.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({super.key});
@@ -40,16 +25,6 @@ class _StartPage extends State<StartPage> {
         complete: false,
       );
 
-  ///  < Scaffold >
-  /// 처음 화면의 layout 을 꾸밀때 사용하는 Widget
-  /// appBar, body, bottomSheet 가 있는데
-  /// appbar 는 화면의 머릿글에 해당하는 부분
-  /// body 는 본문(중앙)에 해당하는 부분
-  /// bottomSheet 는 화면의 footer(꼬릿글)에 해당
-  ///
-  /// body : 보통 데이터를 표현하는 부분, 여긴 Scroll 이 일어나는 부분
-  /// appbar, bottomSheet : body 가 변화되더라도 Scroll이 되지않는 고정부분
-  /// bottomSheet : 입력화면에서 소프트 키보드가 나타 나면 키보드 위에 표현
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +75,8 @@ class _StartPage extends State<StartPage> {
                 onPressed: () {
                   var todo = getTodo(todoContent);
                   setState(() {
-                    todoList.add(todo);
+                    // todoList.add(todo);
+                    TodoService().insert(todo);
                     todoContent = "";
                     inputController.clear();
                   });
@@ -112,14 +88,28 @@ class _StartPage extends State<StartPage> {
         ),
       ),
       body: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(), child: todoListView()),
+          onTap: () => FocusScope.of(context).unfocus(),
+          child: FutureBuilder(
+            future: TodoService().selectAll(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return todoListView(
+                  snapshot: snapshot,
+                );
+              } else {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    semanticsLabel: "데이터가 없습니다",
+                  ),
+                );
+              }
+            },
+          )),
     );
   }
 
-  /// ListView return type 을 Widget 으로 변경하기
-  /// 모든 Widget 은 가장 상위 클래스인 Widget 을 상속 받고 있기 때문에
-  /// 모든 Widget 의 return type 은 Widget 으로 설정 하여도 된다.
-  Widget todoListView() {
+  Widget todoListView({required AsyncSnapshot<List<Todo>> snapshot}) {
+    var todoList = snapshot.data!;
     return ListView.builder(
       itemCount: todoList.length,
       itemBuilder: (context, index) {
@@ -130,11 +120,6 @@ class _StartPage extends State<StartPage> {
           splashColor:
               const Color.fromARGB(255, 180, 20, 30).withOpacity(0.5), // 클릭했을때
           title: Dismissible(
-            /// Key(todoList[index].content),
-            /// 만약 todoList 데이터가 없는 경우 null exception이 발생 할 수 있기 때문에
-            /// Key의 값이 null 이 된다.
-            /// flutter 에서 제공하는  UUID 인
-            /// UniqueKey()사용
             key: UniqueKey(),
             background: Container(
               margin: const EdgeInsets.all(8),
@@ -158,25 +143,21 @@ class _StartPage extends State<StartPage> {
                 color: Colors.white,
               ),
             ),
-
-            /// 사라지기 전의 event
-            /// event 핸들러에서 Future.value(true)를 return  하면
-            /// 스와이프 행위가 진행되고 false 를 return 하면
             confirmDismiss: (direction) => onConfirmHandler(direction, index),
-
-            /// confirmDismiss 에서 true 가 return 되었을때 할일
             onDismissed: (direction) {
               if (direction == DismissDirection.startToEnd) {
                 setState(() {
-                  todoList[index].complete = true;
+                  todoList[index].complete = !todoList[index].complete;
                 });
               } else if (direction == DismissDirection.endToStart) {
-                setState(() {
-                  todoList.removeAt(index);
-                });
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                   content: Text("${todoList[index].content} 를 삭제 하였습니다."),
                 ));
+
+                TodoService().delete(todoList[index].id ?? 0);
+                setState(() {
+                  // todoList.removeAt(index);
+                });
               }
             },
             child: Padding(
