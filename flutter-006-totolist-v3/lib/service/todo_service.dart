@@ -1,6 +1,10 @@
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:totolist/models/todo.dart';
+
+// ignore: constant_identifier_names
+const String TBL_TODO = "tbl_todoList";
 
 /// 안드로이드, 아이폰 에는 공통으로 SQLite 라는 RDBMS 가 내장 되어 있다.
 /// 규모는 매우 작지만 phone 에서 DB를 SQL을 사용하여 관리 할 수 있도록
@@ -13,10 +17,9 @@ class TodoService {
   /// late 키워드는 아직 변수를 초기화 시키지 않았지만
   /// 이 값은 null 이 아니다 라는 선언이다.
   late Database _database;
-  final String TBL_TODO = "tbl_todoList";
   final String createTABLE = """
     CREATE TABLE tbl_todoList (
-      t_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
       sdate TEXT,
       stime TEXT,
       content TEXT,
@@ -69,9 +72,12 @@ class TodoService {
         conflictAlgorithm: ConflictAlgorithm.replace); // 같은 값이 잇으면 덮어써라
   }
 
+  // SQL 사용시 문자열 연결 방식으로 WHERE 절 사용 금지
+  // 인젝션 공격에 노출될 위험
   Future<int> delete(int id) async {
+    debugPrint(id.toString());
     final db = await database;
-    return db.delete(
+    return await db.delete(
       TBL_TODO,
       where: "id = ?",
       whereArgs: [id],
