@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
                         email: "yu1128eun@kakao.com",
                         password: "!Korea8080",
                       );
+                      setState(() {});
                     },
                     child: const Text("로그인"))
               ],

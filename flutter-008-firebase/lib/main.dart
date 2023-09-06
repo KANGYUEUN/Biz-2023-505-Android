@@ -1,7 +1,5 @@
 import 'package:firebase/firebase_options.dart';
-import 'package:firebase/pages/login_page.dart';
 import 'package:firebase/pages/mypage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -22,10 +20,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = FirebaseAuth.instance.currentUser;
-    return MaterialApp(
+    return const MaterialApp(
       home: Scaffold(
-        body: user != null ? const MyPage() : const LoginPage(),
+        body: MyPage(),
       ),
     );
   }
