@@ -1,0 +1,11 @@
+```xml
+<rss>
+    <channel>
+        <lastBuildDate></laseBuildDate>
+        <total></total>
+        <start></start>
+        <display></display>
+        <item></item>
+    </channel>
+</rss>
+```

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movie/api/naver_open_api.dart';
 
 void main() {
+  NaverAPI().loadMovie();
   runApp(const MyApp());
 }
 
