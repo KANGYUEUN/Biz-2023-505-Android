@@ -49,6 +49,9 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+
+        // 안드로이드 배포 파일의 모듈을 다중모드로 설정
+        // 어플의 크기가 커졌을때 발생하는 오류 방지 
         multiDexEnabled true
     }
 

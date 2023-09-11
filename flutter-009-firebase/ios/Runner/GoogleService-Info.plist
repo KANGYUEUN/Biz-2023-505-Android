@@ -2,22 +2,18 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>429607965081-je7l09656a6e6k44fnlcdfm15ussl1ll.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.429607965081-je7l09656a6e6k44fnlcdfm15ussl1ll</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBcKR2bxuSd-DFkarA3araJ37GrCEsPykI</string>
+	<string>AIzaSyB4co0aJscfTrmWbD5VJWtVoaAsm1y9dIQ</string>
 	<key>GCM_SENDER_ID</key>
-	<string>429607965081</string>
+	<string>753388865513</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ruru.firebase.RunnerTests</string>
+	<string>com.ruru.firebase</string>
 	<key>PROJECT_ID</key>
-	<string>flutter-my-app-bbc77</string>
+	<string>flutter-v3-70103</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flutter-my-app-bbc77.appspot.com</string>
+	<string>flutter-v3-70103.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:429607965081:ios:f499fe85a292e6805dc308</string>
+	<string>1:753388865513:ios:5bec25fbfa233cd2a06d78</string>
 </dict>
 </plist>
