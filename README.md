@@ -54,3 +54,15 @@ flutter doctor --android-licenses
 ```bash
 flutter pub get
 ```
+
+## flutter update
+
+- flutter, dart 도구가 update 되는 경우 자주 발생
+- 현재사용중인 프로젝트의 flutter dart 도구를 업데이트 하면 기존의 플젝이 작동 안됨
+- 따라서 신중하게 update 할 필요가 있다..
+
+- update 절차
+- 기존의 dependencies 를 최신 버전으로 업데이트 : `flutter pub upgrade outdated`
+- 프로젝트 clean 과 재설정 : `flutter clean`, `flutter pub get`
+- flutter 도구 자체를 업데이트 : `flutter upgrade` 실행하나 업데이트 과정에서 문제 발생 하여 업데이트가 안되는 경우가 있다
+- 강제 업데이트 : `flutter upgrade --force`
