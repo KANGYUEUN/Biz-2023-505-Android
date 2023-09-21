@@ -29,3 +29,12 @@ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.k
 password : andriod
 ![CMD창 결과물](image.png)
 ```
+
+## 실 스마트폰 디버깅 설정하기
+
+- `Android Studio ` 에서 key 만들기 : bulid > Generate Bundle 메뉴에서 생성
+- `C:\Users\KMS505233\Documents\ruru.jks`
+- `jdk` 설치 폴더로 이동 : ../../../../Desktop/devTools/jdk-15.0.2/bin
+- `jdk` 폴더에서 윈도우 cmd 열기
+- `keytool -list -v -keystore C:\Users\KMS505233\Documents\ruru.jks`
+- firebase 프로젝트에 key값 등록해주기
